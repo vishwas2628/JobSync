@@ -17,18 +17,18 @@ const authRouter = require('./routes/auth.routes.js');
 const { optionalAuth } = require('./middleware/auth.middleware.js');
 
 const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 8086;
 
 app.set('trust proxy', 1); // Important for Render
 
 // === Force HTTPS Redirect (for Render) ===
 if (process.env.NODE_ENV === "production") {
-app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] !== 'https' && process.env.NODE_ENV === 'production') {
-    return res.redirect('https://' + req.headers.host + req.url);
-  }
-  next();
-});
+  app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https' && process.env.NODE_ENV === 'production') {
+      return res.redirect('https://' + req.headers.host + req.url);
+    }
+    next();
+  });
 }
 
 // ========== MONGO DB SETUP ==========
@@ -174,8 +174,8 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASS,
   },
   tls: {
-  rejectUnauthorized: false,
-},
+    rejectUnauthorized: false,
+  },
 });
 
 // Contact form submission

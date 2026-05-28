@@ -1,6 +1,6 @@
 # macOS system files
 .DS_Store
-
+package-lock.json
 # Windows system files
 Thumbs.db
 ehthumbs.db
